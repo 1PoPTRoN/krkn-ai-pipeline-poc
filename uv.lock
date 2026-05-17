@@ -171,6 +171,7 @@ dependencies = [
 [package.dev-dependencies]
 dev = [
     { name = "pytest" },
+    { name = "pyyaml" },
     { name = "responses" },
 ]
 
@@ -185,6 +186,7 @@ requires-dist = [
 [package.metadata.requires-dev]
 dev = [
     { name = "pytest", specifier = ">=8.0.0" },
+    { name = "pyyaml", specifier = ">=6.0.3" },
     { name = "responses", specifier = ">=0.25.0" },
 ]
 

@@ -4,8 +4,7 @@ demo.py — runs the PoC end-to-end against your local kubeconfig.
 Usage:
     PROMETHEUS_URL=http://localhost:9090 uv run python demo.py /path/to/kubeconfig
 
-By end of Day 5: 4 of 5 stages wired (Inventory, Capability, Probe, Recommend).
-Day 6 adds the Render stage and produces the before/after YAML diff.
+By end of Day 6: all 5 stages wired. Writes examples/after.yaml.
 """
 
 from __future__ import annotations
@@ -24,6 +23,11 @@ from krkn_ai_poc.plugins.probe.prometheus_reachability import (
 from krkn_ai_poc.plugins.recommend.scenario_pvc import (
     PVCScenarioRecommenderPlugin,
 )
+from krkn_ai_poc.plugins.render.jinja2 import Jinja2RendererPlugin
+
+REPO_ROOT = Path(__file__).parent
+TEMPLATE = REPO_ROOT / "krkn_ai_poc" / "templates" / "krkn-ai.yaml.j2"
+OUTPUT = REPO_ROOT / "examples" / "after.yaml"
 
 
 def main() -> None:
@@ -43,6 +47,7 @@ def main() -> None:
     registry.register(Stage.CAPABILITY, HasPVCsPlugin())
     registry.register(Stage.PROBE, PrometheusReachabilityPlugin(prometheus_url=prom_url))
     registry.register(Stage.RECOMMEND, PVCScenarioRecommenderPlugin())
+    registry.register(Stage.RENDER, Jinja2RendererPlugin(TEMPLATE, OUTPUT))
 
     runner = PipelineRunner(registry)
     ctx = runner.run(kubeconfig_path=str(kubeconfig))
@@ -58,15 +63,12 @@ def main() -> None:
     print(f"has_pvcs:              {ctx.capabilities.has_pvcs}")
     print(f"prometheus_reachable:  {ctx.capabilities.prometheus_reachable}")
     print()
-    print("=== probes ===")
-    for p in ctx.probes:
-        marker = "✓" if p.success else "✗"
-        print(f"  {marker} {p.name} ({p.kind}) → {p.url}")
-    print()
     print("=== recommendations ===")
     for r in ctx.recommendations:
         print(f"  {r.key} = {r.value}")
         print(f"      reason: {r.reason}")
+    print()
+    print(f"=== rendered → {OUTPUT.relative_to(REPO_ROOT)} ===")
 
 
 if __name__ == "__main__":

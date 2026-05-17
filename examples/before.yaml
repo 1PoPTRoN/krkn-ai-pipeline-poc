@@ -1,0 +1,29 @@
+# What krkn-ai's `discover` produces today (illustrative).
+# Pain points the PoC's pipeline addresses are marked with PAIN.
+
+kubeconfig_file_path: "/home/p0ptr0n/.kube/config"
+namespaces:
+  - default
+  - kube-node-lease
+  - kube-public
+  - kube-system
+  - monitoring
+  - stateful-demo
+
+# PAIN #1: fitness query is hardcoded, identical for every cluster
+fitness_function:
+  query: "sum(kube_pod_container_status_restarts_total)"
+
+# PAIN #2: health checks are commented-out placeholders
+# health_checks:
+#   - name: cart
+#     url: "$HOST/cart/add/1/Watson/1"
+
+# PAIN #3: scenarios shipped statically — false even when PVCs exist
+scenario:
+  pvc-scenarios:
+    enable: false
+  pod-scenarios:
+    enable: true
+  node-scenarios:
+    enable: true

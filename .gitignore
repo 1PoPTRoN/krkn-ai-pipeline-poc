@@ -23,3 +23,8 @@ rad.json
 TestResults.xml
 .DS_Store
 .env.local
+
+# Python bytecode (shouldn't have been committed in earlier days)
+__pycache__/
+*.py[cod]
+*$py.class
