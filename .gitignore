@@ -28,3 +28,11 @@ TestResults.xml
 __pycache__/
 *.py[cod]
 *$py.class
+
+.venv/
+.pytest_cache/
+.env.local
+.coverage
+*.egg-info/
+dist/
+build/
