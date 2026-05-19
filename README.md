@@ -1,9 +1,9 @@
 # krkn-ai-pipeline-poc
 [![tests](https://github.com/1PoPTRoN/krkn-ai-pipeline-poc/actions/workflows/test.yml/badge.svg)](https://github.com/1PoPTRoN/krkn-ai-pipeline-poc/actions/workflows/test.yml)
 
-Vertical-slice PoC for [krkn-chaos/krkn-ai#188](https://github.com/krkn-chaos/krkn-ai/issues/188) — a 5-stage pluggable discovery pipeline.
+Vertical-slice PoC for [krkn-chaos/krkn-ai#188](https://github.com/krkn-chaos/krkn-ai/issues/188) - a 5-stage pluggable discovery pipeline.
 
-Built as the proof-of-concept artifact for the [LFX Mentorship 2026 Term 2](https://mentorship.lfx.linuxfoundation.org/project/b89f3736-7588-4e64-9040-1235ed77155a) application by [@1PoPTRoN](https://github.com/1PoPTRoN). **Not for merge** — this is the architecture proof for the full 12-week deliverable.
+Built as the proof-of-concept artifact for the [LFX Mentorship 2026 Term 2](https://mentorship.lfx.linuxfoundation.org/project/b89f3736-7588-4e64-9040-1235ed77155a) application by [@1PoPTRoN](https://github.com/1PoPTRoN). **Not for merge** - this is the architecture proof for the full 12-week deliverable.
 
 ---
 
@@ -68,6 +68,7 @@ diff examples/before.yaml examples/after.yaml
 
 ## Architecture
 
+```text
 kubeconfig
 │
 ▼
@@ -87,8 +88,10 @@ kubeconfig
 │ Stage 5  Render         Jinja2RendererPlugin                 │
 │          │ template → krkn-ai.yaml                           │
 └──────────┼───────────────────────────────────────────────────┘
+|
 ▼
 after.yaml
+```
 
 Each stage exposes an ABC (`InventoryPlugin`, `CapabilityPlugin`, `ProbePlugin`, `RecommenderPlugin`, `RendererPlugin`). Adding a new scenario in the full LFX deliverable is one new file implementing one ABC, not an edit to `ClusterManager`.
 
@@ -120,7 +123,6 @@ See [the full proposal](https://github.com/1PoPTRoN/krkn-ai-pipeline-poc/blob/ma
 
 - Upstream repo: [krkn-chaos/krkn-ai](https://github.com/krkn-chaos/krkn-ai)
 - Tracking issue: [#188](https://github.com/krkn-chaos/krkn-ai/issues/188)
-- My contributor track record at krkn-chaos: 10 merged PRs (1× krkn-ai [#182](https://github.com/krkn-chaos/krkn-ai/pull/182), 9× krkn — see proposal §13)
 
 ---
 
