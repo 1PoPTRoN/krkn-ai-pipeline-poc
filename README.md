@@ -5,8 +5,6 @@ Vertical-slice PoC - a 5-stage pluggable discovery pipeline.
 
 Built as the proof-of-concept artifact for the [LFX Mentorship 2026 Term 2](https://mentorship.lfx.linuxfoundation.org/project/b89f3736-7588-4e64-9040-1235ed77155a) application by [@1PoPTRoN](https://github.com/1PoPTRoN). **Not for merge** - this is the architecture proof for the full 12-week deliverable.
 
----
-
 ## What this proves
 
 `krkn-ai discover` today outputs a YAML inventory that needs hand-editing before it's runnable: hardcoded fitness query, commented-out health checks, scenarios statically enabled regardless of what's in the cluster. The proposed pipeline turns those decisions into auditable, plugin-driven recommendations.
@@ -26,8 +24,6 @@ scenario:
     # reason: 1 PVC(s) detected; enabling pvc-scenarios
 ```
 
----
-
 ## Status
 
 | Stage | Plugin in this PoC | Status |
@@ -41,8 +37,6 @@ scenario:
 **14 tests passing**, including end-to-end pipeline tests with mocked cluster + Prometheus, plus a YAML-validity regression test.
 
 **Validated against:** minikube v1.35 on Ubuntu 24.04 (UTM on Apple Silicon), with `kube-prometheus-stack` (Helm) and a single-PVC Postgres workload.
-
----
 
 ## Try it
 
@@ -63,8 +57,6 @@ PROMETHEUS_URL=http://localhost:9090 uv run python demo.py ~/.kube/config
 # 4. See the diff
 diff examples/before.yaml examples/after.yaml
 ```
-
----
 
 ## Architecture
 
@@ -95,15 +87,11 @@ after.yaml
 
 Each stage exposes an ABC (`InventoryPlugin`, `CapabilityPlugin`, `ProbePlugin`, `RecommenderPlugin`, `RendererPlugin`). Adding a new scenario in the full LFX deliverable is one new file implementing one ABC, not an edit to `ClusterManager`.
 
----
-
 ## What this PoC is NOT
 
 - ❌ A fork of krkn-ai. It's a standalone proof of the pipeline architecture; integration with upstream happens in the LFX work.
 - ❌ The full deliverable. The LFX 12-week scope ships 22 plugins total, plus `--explain` and `--merge-with`. This PoC ships 5 (one per stage).
 - ❌ Production code. No retry logic, no concurrency, no plugin discovery from entry points. All deferred to the LFX scope where they belong.
-
----
 
 ## What's deferred to the LFX 12 weeks
 
@@ -115,13 +103,9 @@ Each stage exposes an ABC (`InventoryPlugin`, `CapabilityPlugin`, `ProbePlugin`,
 - Plugin discovery via `pyproject.toml` entry points
 - Upstream integration as a non-breaking addition to `krkn_ai/cli/cmd.py`
 
----
-
 ## Related
 
 - Upstream repo: [krkn-chaos/krkn-ai](https://github.com/krkn-chaos/krkn-ai)
-
----
 
 ## License
 
