@@ -1,7 +1,7 @@
 # krkn-ai-pipeline-poc
 [![tests](https://github.com/1PoPTRoN/krkn-ai-pipeline-poc/actions/workflows/test.yml/badge.svg)](https://github.com/1PoPTRoN/krkn-ai-pipeline-poc/actions/workflows/test.yml)
 
-Vertical-slice PoC for [krkn-chaos/krkn-ai#188](https://github.com/krkn-chaos/krkn-ai/issues/188) - a 5-stage pluggable discovery pipeline.
+Vertical-slice PoC - a 5-stage pluggable discovery pipeline.
 
 Built as the proof-of-concept artifact for the [LFX Mentorship 2026 Term 2](https://mentorship.lfx.linuxfoundation.org/project/b89f3736-7588-4e64-9040-1235ed77155a) application by [@1PoPTRoN](https://github.com/1PoPTRoN). **Not for merge** - this is the architecture proof for the full 12-week deliverable.
 
@@ -115,14 +115,11 @@ Each stage exposes an ABC (`InventoryPlugin`, `CapabilityPlugin`, `ProbePlugin`,
 - Plugin discovery via `pyproject.toml` entry points
 - Upstream integration as a non-breaking addition to `krkn_ai/cli/cmd.py`
 
-See [the full proposal](https://github.com/1PoPTRoN/krkn-ai-pipeline-poc/blob/main/PROPOSAL_LINK.md) for the week-by-week timeline.
-
 ---
 
 ## Related
 
 - Upstream repo: [krkn-chaos/krkn-ai](https://github.com/krkn-chaos/krkn-ai)
-- Tracking issue: [#188](https://github.com/krkn-chaos/krkn-ai/issues/188)
 
 ---
 
